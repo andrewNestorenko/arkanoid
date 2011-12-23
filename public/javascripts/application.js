@@ -18,20 +18,21 @@ $(function() {
      *
      */
     var layout = new Rect('#000', 0, 0, canvas.width, canvas.height)
-      , playerWidth = 10
+      , playerWidth = 1
       , playerHeight = layout.height / 5
+      , playerIndent = 10
       , ball = new Rect('#fff', 150, 50, 10, 10)
 
-      , playerLeft = new Player('#fff', 10, (layout.height / 2 - playerHeight / 2), playerWidth, playerHeight)
+      , playerLeft = new Player('#fff', playerIndent, (layout.height / 2 - playerHeight / 2), playerWidth, playerHeight)
 //      , playerRight = new Player('#fff', (layout.width - 10 - playerWidth), (layout.height / 2 - playerHeight / 2), playerWidth, playerHeight)
-      , playerRight = new Player('#fff', (layout.width - 10 - playerWidth), 20, playerWidth, layout.height - playerWidth * 2 - 20)
-      , playerTop = new Player('#fff', playerWidth + 10, 10, layout.width - playerWidth * 2 - 20, 10)
-      , playerBottom = new Player('#fff', playerWidth + 10, layout.width - 20, layout.width - playerWidth * 2 - 20, 10)
+          , playerRight = new Player('#fff', (layout.width - playerIndent - playerWidth), playerWidth + playerIndent, playerWidth, layout.height - playerWidth * 2 - playerIndent * 2)
+      , playerTop = new Player('#fff', playerWidth + playerIndent, playerIndent, layout.width - playerWidth * 2 - playerIndent * 2, playerWidth)
+      , playerBottom = new Player('#fff', playerWidth + playerIndent, layout.height - playerIndent - playerWidth, layout.width - playerWidth * 2 - playerIndent * 2, playerWidth)
 
-      , borderLeft = new Border('#0F0', 0, 0, 10, layout.height)
-      , borderRight = new Border('#0F0', (layout.width - 10), 0, playerWidth, layout.height)
-      , borderTop = new Border('#F0F', 0, 0, layout.width, 10)
-      , borderBottom = new Border('#f0f', 0, layout.width - 10, layout.width, 10);
+      , borderLeft = new Border('#0F0', 0, 0, playerIndent, layout.height)
+      , borderRight = new Border('#0F0', (layout.width - playerIndent), 0, playerIndent, layout.height)
+      , borderTop = new Border('#F0F', 0, 0, layout.width, playerIndent)
+      , borderBottom = new Border('#f0f', 0, layout.width - playerIndent, layout.width, playerIndent);
 
     /**
      * Assign player to border
