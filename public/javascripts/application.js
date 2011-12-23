@@ -1,11 +1,22 @@
 $(function() {
 
+    /**
+     * Base canvas variables
+     */
     var canvas = document.getElementById("arkanoid")
       , context = canvas.getContext("2d")
       , offsetTop = canvas.offsetTop;
 
+    /**
+     * Set context to all Rectangle objects
+     */
     Rect.prototype.context = context;
 
+    /**
+     * Game objects
+     * players, ball, borders
+     *
+     */
     var layout = new Rect('#000', 0, 0, canvas.width, canvas.height)
       , playerWidth = 10
       , playerHeight = layout.height / 5
@@ -17,17 +28,22 @@ $(function() {
       , playerTop = new Player('#fff', playerWidth + 10, 10, layout.width - playerWidth * 2 - 20, 10)
       , playerBottom = new Player('#fff', playerWidth + 10, layout.width - 20, layout.width - playerWidth * 2 - 20, 10)
 
-
       , borderLeft = new Border('#0F0', 0, 0, 10, layout.height)
       , borderRight = new Border('#0F0', (layout.width - 10), 0, playerWidth, layout.height)
       , borderTop = new Border('#F0F', 0, 0, layout.width, 10)
       , borderBottom = new Border('#f0f', 0, layout.width - 10, layout.width, 10);
 
+    /**
+     * Assign player to border
+     */
     borderLeft.player = playerLeft;
     borderRight.player = playerRight;
     borderTop.player = playerTop;
     borderBottom.player = playerBottom;
 
+    /**
+     * If player lose than ball will appeared near this player
+     */
     canvas.onclick = function() {
         if (ball.dx == 0 && ball.dy == 0) {
             ball.dx = 5;
@@ -36,9 +52,16 @@ $(function() {
         }
     };
 
+    /**
+     * Default ball delta
+     * pixel count and side (- or +) where ball will move
+     */
     ball.dx = -5;
     ball.dy = -5;
 
+    /**
+     * Collision player with ball
+     */
     playerRight.onCollision = function() {
         ball.dx *= -1;
     };
@@ -54,6 +77,11 @@ $(function() {
     playerBottom.onCollision = function() {
         ball.dy *= -1;
     };
+
+    /**
+     * Ball move
+     * check for collision with all object on canvas
+     */
     ball.move = function() {
         this.x += this.dx;
         this.y += this.dy;
@@ -65,6 +93,10 @@ $(function() {
         }
     };
 
+    /**
+     * binding player to mouse
+     * @param e
+     */
     canvas.onmousemove = function(e) {
         var y = e.pageY - offsetTop;
         if (playerLeft.height / 2 + playerLeft.width < y && y < layout.height - playerLeft.height / 2 - playerLeft.width) {
@@ -84,6 +116,9 @@ $(function() {
         setTimeout(function() { game.redraw() }, 25);
     };
 
+    /**
+     * Add all object that in canvas
+     */
     game.addObject(layout)
         .addObject(playerLeft)
         .addObject(playerRight)
