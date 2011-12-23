@@ -1,12 +1,11 @@
 !!!
 html
   head
-    title= title
+    title Arkanoid
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js")
-    script(src="/javascripts/classes/rect.js")
-    script(src="/javascripts/classes/player.js")
-    script(src="/javascripts/classes/border.js")
-    script(src="/javascripts/classes/game.js")
-    script(src="/javascripts/application.js")
-  body!= body
+  body
+    .messages
+      ul.infos!= flash.info ? '<li>' + flash.error.join('</li><li>') + '</li>' : ''
+      ul.errors!= flash.error ? '<li>' + flash.error.join('</li><li>') + '</li>' : ''
+    .content!= body

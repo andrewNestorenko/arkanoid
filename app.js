@@ -4,7 +4,6 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
   , app = module.exports = express.createServer();
 
 // Socket.io
@@ -15,11 +14,11 @@ var io = require('socket.io').listen(app);
 
 require('./configs/socket.io')(io);
 require('./configs/application')(app);
+require('./configs/helpers')(app);
 
 // Routes
 
-app.get('/', routes.index);
-
-//require('./controllers/socket.io')(io);
+require('./configs/routes')(app);
 
 app.listen(3001);
+console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
