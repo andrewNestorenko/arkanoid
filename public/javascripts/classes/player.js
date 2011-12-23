@@ -3,3 +3,5 @@ function Player() {
     this.init.apply(this, arguments);
 };
 Player.prototype = new Rect();
+
+Player.prototype.isReal = false;
